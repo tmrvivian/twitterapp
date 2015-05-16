@@ -9,6 +9,8 @@ router.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 router.use(bodyParser.json());
 
+module.exports=function(io){
+
 router.get('/users/:name', function(req,res){
 	var name = req.params.name;
 	var list = tweetBank.find({name:name});
@@ -36,11 +38,9 @@ router.post('/submit', function(req, res){
 	var name = req.body.name;
 	var text = req.body.text;
 	tweetBank.add(name,text);
-	io.sockets.emit('new_tweet',tweetBank.list());
+	io.sockets.emit('new_tweet', {name:name, text:text, id:tweetBank.list().length+1});
 	res.redirect('/');
 });
 
-
-module.exports=function(io){
 	return router;
 }

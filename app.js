@@ -2,8 +2,14 @@ var express = require( 'express' );
 var app = express();
 var swig = require('swig');
 var routes = require('./routes/');
-var socketio=require('socket.io')
+var socketio=require('socket.io');
+var logger = require('morgan');
 
+
+var server = app.listen(3000);
+var io=socketio.listen(server);
+
+app.use(logger('dev'));
 // app.engine (docs) to use swig.renderFile as the function to actually render html
 // app.set (docs) the default view engine to html (so we don't have to specify on every render)
 // app.set (docs) the views path to our views folder (where we store our templates)
@@ -21,5 +27,3 @@ app.use('/',routes(io));
 
 
 
-var server = app.listen(3000);
-var io=socketio.listen(server);

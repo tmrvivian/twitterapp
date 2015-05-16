@@ -29,10 +29,15 @@
     
       <!-- display tweets here -->
       <h3>{{title}}</h3>
+      <ul id='list'>
       {% for tweet in tweets %}
          <li><a href="/users/{{tweet.name}}"><b>{{tweet.name}}</b></a></li>
          <li> <a href="/users/{{tweet.name}}/tweets/{{tweet.id}}">{{tweet.text}}</a></li><br>
+
       {% endfor %}
+      </ul>
+
+      
       
     </div>
   </div>
